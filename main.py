@@ -18,13 +18,16 @@ MAX_CHARS = 200
 
 
 def main() -> int:
-    # Gate self-check: 1-200 characters, not only white space.
+    # Gate self-check: 1-200 characters, not only white space, one line.
     if not (1 <= len(ENTRY) <= MAX_CHARS):
         print(f"gate failed: entry is {len(ENTRY)} chars, limit {MAX_CHARS}",
               file=sys.stderr)
         return 1
     if not ENTRY.strip():
         print("gate failed: entry is only white space", file=sys.stderr)
+        return 1
+    if "\n" in ENTRY or "\r" in ENTRY:
+        print("gate failed: entry must be a single line", file=sys.stderr)
         return 1
 
     out_path = "/output/entry.txt"
